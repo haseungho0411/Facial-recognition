@@ -17,11 +17,12 @@ def main():
         for (x, y, w, h) in faces:
             # 얼굴 부분 추출
             face_frame = frame[y:y+h, x:x+w]
-            emotion = analyze_emotion(face_frame)
+            emotion, confidence = analyze_emotion(face_frame)
 
             # 결과 출력
+            text = f'{emotion} (Confidence: {confidence:.2f})'
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
-            cv2.putText(frame, emotion, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+            cv2.putText(frame, text, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
 
         cv2.imshow('Real-time Face Recognition and Emotion Analysis', frame)
 
